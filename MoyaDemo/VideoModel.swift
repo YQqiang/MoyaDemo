@@ -21,7 +21,7 @@ class VideoModel: Mappable {
 }
 
 class Video: Mappable {
-    var id: String?
+    var id: Int?
     var length: Float?
     var name: String?
     var url: String?
