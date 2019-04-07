@@ -15,6 +15,11 @@ enum AppService: TargetType {
 }
 
 extension AppService {
+    
+    var headers: [String : String]? {
+        return [:]
+    }
+    
     var baseURL: URL {
         return URL(string: API_PRO)!
     }
@@ -37,7 +42,7 @@ extension AppService {
         }
     }
     
-    var parameters: [String: Any]? {
+    var parameters: [String: Any] {
         switch self {
         case .login(username: let username, pwd: let pwd):
             return ["username": username, "pwd": pwd]
@@ -55,13 +60,13 @@ extension AppService {
     }
     
     var task: Task {
-        return .request
+        return .requestParameters(parameters: parameters, encoding: parameterEncoding)
     }
 }
 
-private let endPointClosure = { (target: AppService) -> Endpoint<AppService> in
+private let endPointClosure = { (target: AppService) -> Endpoint in
     let defaultEndpoint = MoyaProvider<AppService>.defaultEndpointMapping(for: target)
-    return defaultEndpoint.adding(parameters: publicParameters as [String : AnyObject]?, httpHeaderFields: headerFields, parameterEncoding: JSONEncoding.default)
+    return defaultEndpoint.adding(newHTTPHeaderFields: headerFields)
 }
 
-let appServiceProvider = RxMoyaProvider<AppService>.init()
+let appServiceProvider = MoyaProvider<AppService>.init()

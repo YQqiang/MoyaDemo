@@ -58,7 +58,7 @@ extension Observable {
             guard let array = response as? [[String: Any]] else {
                 throw RxSwiftMoyaError.ParseJSONError
             }
-            return Mapper<T>().mapArray(JSONArray: array)!
+            return Mapper<T>().mapArray(JSONArray: array)
         }
     }
 }

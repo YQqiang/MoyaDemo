@@ -12,17 +12,17 @@ import RxSwift
 class ViewModel {
     
     func login(username: String, pwd: String) -> Observable<LoginModel> {
-        return appServiceProvider.request(.login(username: username, pwd: pwd))
+        return appServiceProvider.rx.request(.login(username: username, pwd: pwd))
             .filterSuccessfulStatusCodes()
-            .mapJSON()
+            .mapJSON().asObservable()
             .showAPIErrorToast()
             .mapObject(type: LoginModel.self)
     }
     
     func video() -> Observable<VideoModel> {
-        return appServiceProvider.request(.video)
+        return appServiceProvider.rx.request(.video)
             .filterSuccessfulStatusCodes()
-            .mapJSON()
+            .mapJSON().asObservable()
             .showAPIErrorToast()
             .mapObject(type: VideoModel.self)
     }

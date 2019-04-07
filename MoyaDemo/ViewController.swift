@@ -29,7 +29,7 @@ class ViewController: UIViewController {
             for video in videos {
                 print("----id:\(video.id)---length:\(video.length)---name:\(video.name)---url:\(video.url)")
             }
-        }).addDisposableTo(disposeBag)
+        }).disposed(by: disposeBag)
     }
 }
 
